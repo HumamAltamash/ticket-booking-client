@@ -11,6 +11,7 @@ function Login() {
   const onFinish = async (value: LoginUserPayload) => {
     try {
       await login(value);
+      console.log("Login successful");
       navigate("/");
     } catch (error) {
       console.error(error);

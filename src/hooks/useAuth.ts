@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { setCredentials, clearCredentials } from "../store/authSlice";
-import { axiosInstance } from "../api";
-import { LoginUser } from "../api/users";
+import { LoginUser, LogoutUser } from "../api/users";
 import { LoginUserPayload } from "../types/user";
 
 export const useAuth = () => {
@@ -15,7 +14,8 @@ export const useAuth = () => {
   };
 
   const logout = async () => {
-    await axiosInstance.post("/auth/logout");
+    LogoutUser();
+
     dispatch(clearCredentials());
   };
 

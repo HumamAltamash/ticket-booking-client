@@ -6,7 +6,6 @@ import { axiosInstance } from "./index";
 // Request Interceptor: Attach Access Token
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log("config", config);
     const state = store.getState();
     const accessToken = state.auth.accessToken;
     if (accessToken) {
@@ -22,7 +21,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     console.log("error", error);
-    if (error.response?.status === 403) {
+    if (error.response?.status === 403 || error.response?.status === 401) {
       try {
         const { data } = await axios.post(
           "/api/auth/refresh",
