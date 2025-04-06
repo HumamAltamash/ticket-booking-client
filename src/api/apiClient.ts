@@ -20,7 +20,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log("error", error);
     if (error.response?.status === 403 || error.response?.status === 401) {
       try {
         const { data } = await axios.post(
@@ -41,7 +40,6 @@ axiosInstance.interceptors.response.use(
         return axiosInstance.request(error.config);
       } catch (refreshError) {
         store.dispatch(clearCredentials());
-        console.error("Session expired, please log in again");
         return Promise.reject(refreshError);
       }
     }

@@ -13,8 +13,9 @@ import { setUser } from "../../store/userSlice";
 import { hideLoader, showLoader } from "../../store/loaderSlice";
 import { Layout, Menu } from "antd";
 import { Header } from "antd/es/layout/layout";
-import "./home.css";
+import "./Home.css";
 import { useAuth } from "../../hooks/useAuth";
+import Admin from "../Admin/Admin";
 
 function Home() {
   const { logout } = useAuth();
@@ -96,7 +97,9 @@ function Home() {
             className="home-menu"
           />
         </Header>
-        <div className="home-content">{/* Page content goes here */}</div>
+        <div className="home-content">
+          <Admin />
+        </div>
       </Layout>
     )
   );

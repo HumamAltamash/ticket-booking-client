@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import "./index.css"; // Import the external CSS file
+import "./Login.css"; // Import the external CSS file
 import { LoginUserPayload } from "../../types/user";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -11,7 +11,6 @@ function Login() {
   const onFinish = async (value: LoginUserPayload) => {
     try {
       await login(value);
-      console.log("Login successful");
       navigate("/");
     } catch (error) {
       console.error(error);

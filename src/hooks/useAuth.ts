@@ -9,7 +9,8 @@ export const useAuth = () => {
   const { user, accessToken } = useSelector((state: RootState) => state.auth);
 
   const login = async (value: LoginUserPayload) => {
-    const { user, accessToken } = await LoginUser(value);
+    const response = await LoginUser(value);
+    const { user, accessToken } = response.data;
     dispatch(setCredentials({ user: user, accessToken: accessToken }));
   };
 

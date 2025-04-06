@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 import { Link } from "react-router-dom";
-import "./index.css";
+import "./Register.css";
 import { RegisterUserPayload } from "../../types/user";
 import { RegisterUser } from "../../api/users";
 

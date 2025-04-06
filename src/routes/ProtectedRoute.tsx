@@ -8,7 +8,6 @@ import { setCredentials } from "../store/authSlice";
 const ProtectedRoute = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
-  console.log("user", user);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {
@@ -16,13 +15,12 @@ const ProtectedRoute = () => {
       if (user === undefined || user === null) {
         try {
           const response = await refreshToken();
-          console.log("response", response);
 
           if (response.success) {
             dispatch(
               setCredentials({
-                user: response.user,
-                accessToken: response.accessToken,
+                user: response.data.user,
+                accessToken: response.data.accessToken,
               })
             );
           }
