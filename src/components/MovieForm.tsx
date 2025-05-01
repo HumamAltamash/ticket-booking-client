@@ -1,7 +1,7 @@
 import { Form, Input, InputNumber, Modal, Select, DatePicker } from "antd";
 import { useEffect } from "react";
 import moment from "moment";
-import { addMovie, updateMovie } from "../../api/movies";
+import { addMovie, updateMovie } from "../api/movies";
 
 const { TextArea } = Input;
 const { Option } = Select;

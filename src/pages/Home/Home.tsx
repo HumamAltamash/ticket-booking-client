@@ -16,9 +16,11 @@ import { Header } from "antd/es/layout/layout";
 import "./Home.css";
 import { useAuth } from "../../hooks/useAuth";
 import Admin from "../Admin/Admin";
+import Partner from "../Partner/Partner";
+import { UserRole } from "../../types/user";
 
 function Home() {
-  const { logout } = useAuth();
+  const { logout, role } = useAuth();
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,21 +34,7 @@ function Home() {
       children: [
         {
           key: "profile",
-          label: (
-            <span
-              onClick={() => {
-                if (user.role === "admin") {
-                  navigate("/admin");
-                } else if (user.role === "partner") {
-                  navigate("/partner");
-                } else {
-                  navigate("/profile");
-                }
-              }}
-            >
-              My Profile
-            </span>
-          ),
+          label: <span>My Profile</span>,
           icon: <ProfileOutlined />,
         },
         {
@@ -98,7 +86,9 @@ function Home() {
           />
         </Header>
         <div className="home-content">
-          <Admin />
+          {role === UserRole.ADMIN && <Admin />}
+          {role === UserRole.PARTNER && <Partner />}
+          {role === UserRole.USER && <Home />}
         </div>
       </Layout>
     )

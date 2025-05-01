@@ -1,4 +1,4 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Radio } from "antd";
 import { Link } from "react-router-dom";
 import "./Register.css";
 import { RegisterUserPayload } from "../../types/user";
@@ -7,9 +7,16 @@ import { RegisterUser } from "../../api/users";
 function Register() {
   const onFinish = async (value: RegisterUserPayload) => {
     try {
-      RegisterUser(value);
-      message.success("Signup successful!");
+      const response = await RegisterUser(value);
+      if (!response) {
+        message.error("Registration failed");
+      } else if (!response.success) {
+        message.error(response.message);
+      } else {
+        message.success("Signup successful!");
+      }
     } catch (error) {
+      console.error(error);
       message.error("Signup failed");
     }
   };
@@ -45,6 +52,17 @@ function Register() {
             rules={[{ required: true, message: "Password is required" }]}
           >
             <Input id="password" type="password" />
+          </Form.Item>
+          <Form.Item
+            label="Role"
+            rules={[{ required: true, message: "Role is required" }]}
+            htmlFor="role"
+            name="role"
+          >
+            <Radio.Group>
+              <Radio value="user"> User </Radio>
+              <Radio value="partner"> Partner </Radio>
+            </Radio.Group>
           </Form.Item>
           <Form.Item>
             <Button type="primary" block htmlType="submit">

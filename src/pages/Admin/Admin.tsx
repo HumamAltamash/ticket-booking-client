@@ -1,6 +1,6 @@
 import { Tabs } from "antd";
-import MoviesList from "./MoviesList";
-import TheatreTable from "./TheatreTable";
+import MoviesList from "../../components/MoviesList";
+import TheatreTable from "../../components/TheatreTable";
 
 function Admin() {
   const tabItems = [

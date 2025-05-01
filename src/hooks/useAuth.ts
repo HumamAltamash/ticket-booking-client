@@ -6,12 +6,14 @@ import { LoginUserPayload } from "../types/user";
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  const { user, accessToken } = useSelector((state: RootState) => state.auth);
+  const { user, accessToken, role } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const login = async (value: LoginUserPayload) => {
     const response = await LoginUser(value);
-    const { user, accessToken } = response.data;
-    dispatch(setCredentials({ user: user, accessToken: accessToken }));
+    const { user, accessToken, role } = response.data;
+    dispatch(setCredentials({ user, accessToken, role }));
   };
 
   const logout = async () => {
@@ -20,5 +22,5 @@ export const useAuth = () => {
     dispatch(clearCredentials());
   };
 
-  return { user, accessToken, login, logout };
+  return { user, accessToken, role, login, logout };
 };

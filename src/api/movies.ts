@@ -1,3 +1,4 @@
+import { AddMoviePayload, UpdateMoviePayload } from "../types/movies";
 import axiosInstance from "./apiClient";
 
 export const getMovies = async () => {
@@ -9,7 +10,7 @@ export const getMovies = async () => {
   }
 };
 
-export const addMovie = async (value: any) => {
+export const addMovie = async (value: AddMoviePayload) => {
   try {
     const response = await axiosInstance.post("api/movies/add-movie", value);
     return response.data;
@@ -18,7 +19,7 @@ export const addMovie = async (value: any) => {
   }
 };
 
-export const updateMovie = async (value: any) => {
+export const updateMovie = async (value: UpdateMoviePayload) => {
   try {
     const response = await axiosInstance.put("api/movies/update-movie", value);
     return response.data;
@@ -27,11 +28,11 @@ export const updateMovie = async (value: any) => {
   }
 };
 
-export const deleteMovie = async (value: any) => {
+export const deleteMovie = async (id: string) => {
   try {
-    const response = await axiosInstance.delete("api/movies/delete-movie", {
-      data: value,
-    });
+    const response = await axiosInstance.delete(
+      `/api/movies/delete-movie/${id}`
+    );
     return response.data;
   } catch (error) {
     return console.error(error);

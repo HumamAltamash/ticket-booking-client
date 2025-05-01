@@ -1,11 +1,11 @@
 import { Button, Table } from "antd";
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { useDispatch } from "react-redux";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { getMovies } from "../../api/movies";
-import { Movie } from "../../types/movies";
+import { getMovies } from "../api/movies";
+import { Movie } from "../types/movies";
 import MovieForm from "./MovieForm";
+import DeleteMovieModal from "./DeleteMovieModal";
 
 export interface MovieTableData {
   key: string;
@@ -22,11 +22,9 @@ export interface MovieTableData {
 function MoviesList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [movies, setMovies] = useState([] as MovieTableData[]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [formType, setFormType] = useState("add");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  const dispatch = useDispatch();
 
   const tableHeadings = [
     {
@@ -53,14 +51,14 @@ function MoviesList() {
     {
       title: "Release Date",
       dataIndex: "releaseDate",
-      render: (text: string, data: any) => {
+      render: (_text: string, data: any) => {
         return moment(data.releaseDate).format("YYYY-MM-DD");
       },
     },
     { title: "Language", dataIndex: "language" },
     {
       title: "Action",
-      render: (text: string, data: any) => {
+      render: (_text: string, data: any) => {
         return (
           <>
             <Button
@@ -120,6 +118,15 @@ function MoviesList() {
           selectedMovie={selectedMovie}
           setSelectedMovie={setSelectedMovie}
           formType={formType}
+          getData={getData}
+        />
+      )}
+      {isDeleteModalOpen && (
+        <DeleteMovieModal
+          isModalOpen={isDeleteModalOpen}
+          setIsModalOpen={setIsDeleteModalOpen}
+          selectedMovie={selectedMovie}
+          setSelectedMovie={setSelectedMovie} // Wrap in a callback
           getData={getData}
         />
       )}
